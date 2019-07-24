@@ -19,6 +19,7 @@ class TweetActivity : AppCompatActivity() {
         botao.setOnClickListener {
             Log.i("botao","Botão clicado!")
             publicaTweet()
+            finish()
         }
     }
 
