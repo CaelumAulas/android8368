@@ -2,6 +2,7 @@ package br.com.twittelumapp.activity
 
 import android.app.Activity
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.widget.ArrayAdapter
 import br.com.twittelumapp.R
@@ -17,6 +18,7 @@ class ListaActivity : AppCompatActivity() {
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, tweets)
         lista_tweets.adapter = adapter
 
+        fab_tweet.setOnClickListener { Snackbar.make(lista_tweets, "botão clicado!!", Snackbar.LENGTH_LONG).show() }
     }
 
 }
