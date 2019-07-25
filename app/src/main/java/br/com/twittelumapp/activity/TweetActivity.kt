@@ -3,6 +3,8 @@ package br.com.twittelumapp.activity
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -14,20 +16,32 @@ class TweetActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tweet)
 
-        val botao = findViewById<Button>(R.id.publica_button)
-
-        botao.setOnClickListener {
-            Log.i("botao","Botão clicado!")
-            publicaTweet()
-            finish()
-        }
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun publicaTweet() {
         val campoDeMensagemDoTweet = findViewById<EditText>(R.id.campo_tweet)
 
-        val mensagemDoTweet : String = campoDeMensagemDoTweet.text.toString()
+        val mensagemDoTweet: String = campoDeMensagemDoTweet.text.toString()
 
         Toast.makeText(this, mensagemDoTweet, Toast.LENGTH_LONG).show()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_tweet, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.menu_tweet_salvar -> {
+                Log.i("botao", "Botão clicado!")
+                publicaTweet()
+                finish()
+            }
+            android.R.id.home -> finish()
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }
