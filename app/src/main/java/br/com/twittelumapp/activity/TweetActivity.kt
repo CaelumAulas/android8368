@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import br.com.twittelumapp.R
+import br.com.twittelumapp.modelo.Tweet
 
 class TweetActivity : AppCompatActivity() {
 
@@ -17,6 +18,7 @@ class TweetActivity : AppCompatActivity() {
         setContentView(R.layout.activity_tweet)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
     }
 
     private fun publicaTweet() {
@@ -24,7 +26,10 @@ class TweetActivity : AppCompatActivity() {
 
         val mensagemDoTweet: String = campoDeMensagemDoTweet.text.toString()
 
-        Toast.makeText(this, mensagemDoTweet, Toast.LENGTH_LONG).show()
+        val tweet = Tweet(mensagemDoTweet)
+        Log.i("tweet", tweet.toString())
+
+        Toast.makeText(this, "$tweet", Toast.LENGTH_LONG).show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
