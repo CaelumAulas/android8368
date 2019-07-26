@@ -5,10 +5,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import br.com.twittelumapp.R
+import br.com.twittelumapp.bancodedados.TweetDao
+import br.com.twittelumapp.bancodedados.TwittelumBancoDeDados
 import br.com.twittelumapp.modelo.Tweet
 
 class TweetActivity : AppCompatActivity() {
@@ -28,6 +29,10 @@ class TweetActivity : AppCompatActivity() {
 
         val tweet = Tweet(mensagemDoTweet)
         Log.i("tweet", tweet.toString())
+
+        val banco: TwittelumBancoDeDados = TwittelumBancoDeDados.getInstance(this)
+        val tweetDao: TweetDao = banco.getTweetDao()
+        tweetDao.insere(tweet)
 
         Toast.makeText(this, "$tweet", Toast.LENGTH_LONG).show()
     }
