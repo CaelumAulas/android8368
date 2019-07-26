@@ -11,6 +11,7 @@ import br.com.twittelumapp.R
 import br.com.twittelumapp.bancodedados.TweetDao
 import br.com.twittelumapp.bancodedados.TwittelumBancoDeDados
 import br.com.twittelumapp.modelo.Tweet
+import br.com.twittelumapp.repository.TweetRepository
 
 class TweetActivity : AppCompatActivity() {
 
@@ -30,9 +31,8 @@ class TweetActivity : AppCompatActivity() {
         val tweet = Tweet(mensagemDoTweet)
         Log.i("tweet", tweet.toString())
 
-        val banco: TwittelumBancoDeDados = TwittelumBancoDeDados.getInstance(this)
-        val tweetDao: TweetDao = banco.getTweetDao()
-        tweetDao.insere(tweet)
+        val tweetRepository = TweetRepository()
+        tweetRepository.insere(tweet)
 
         Toast.makeText(this, "$tweet", Toast.LENGTH_LONG).show()
     }
