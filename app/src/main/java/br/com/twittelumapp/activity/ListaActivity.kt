@@ -16,19 +16,21 @@ class ListaActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lista)
 
-        val twittelumBancoDeDados = TwittelumBancoDeDados.getInstance(this)
-        val tweetDao = twittelumBancoDeDados.getTweetDao()
-        val tweets: List<Tweet> = tweetDao.lista()
-
-//        val tweets = listOf("Primeiro tweet", "Segundo tweet")
-
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, tweets)
-        lista_tweets.adapter = adapter
-
         fab_tweet.setOnClickListener {
             val intent = Intent(this, TweetActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val twittelumBancoDeDados = TwittelumBancoDeDados.getInstance(this)
+        val tweetDao = twittelumBancoDeDados.getTweetDao()
+        val tweets: List<Tweet> = tweetDao.lista()
+
+        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, tweets)
+        lista_tweets.adapter = adapter
     }
 
 }
