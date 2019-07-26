@@ -12,7 +12,7 @@ abstract class TwittelumBancoDeDados : RoomDatabase() {
 
 
     companion object {
-        var banco: TwittelumBancoDeDados? = null
+        private var banco: TwittelumBancoDeDados? = null
 
         fun getInstance(contexto: Context):TwittelumBancoDeDados {
            return banco ?: criaNovoBanco(contexto).also { database -> banco = database }
