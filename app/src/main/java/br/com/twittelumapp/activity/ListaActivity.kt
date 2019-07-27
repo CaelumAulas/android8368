@@ -1,18 +1,23 @@
 package br.com.twittelumapp.activity
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
-import android.view.Menu
 import android.widget.ArrayAdapter
 import br.com.twittelumapp.R
-import br.com.twittelumapp.bancodedados.TwittelumBancoDeDados
 import br.com.twittelumapp.modelo.Tweet
-import br.com.twittelumapp.repository.TweetRepository
+import br.com.twittelumapp.viewmodel.TweetViewModel
+import br.com.twittelumapp.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_lista.*
 
 class ListaActivity : AppCompatActivity() {
+    private val tweetViewModel: TweetViewModel by lazy {
+        ViewModelProviders.of(this, ViewModelFactory)
+            .get(TweetViewModel::class.java)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lista)
@@ -21,16 +26,12 @@ class ListaActivity : AppCompatActivity() {
             val intent = Intent(this, TweetActivity::class.java)
             startActivity(intent)
         }
-    }
 
-    override fun onResume() {
-        super.onResume()
+        tweetViewModel.lista().observe(this, Observer {tweets ->
+            val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, tweets)
+            lista_tweets.adapter = adapter
+        })
 
-        val tweetRepository = TweetRepository()
-        val tweets: List<Tweet> = tweetRepository.lista()
-
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, tweets)
-        lista_tweets.adapter = adapter
     }
 
 }

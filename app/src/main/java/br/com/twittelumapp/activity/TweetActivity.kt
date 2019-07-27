@@ -1,5 +1,6 @@
 package br.com.twittelumapp.activity
 
+import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -12,15 +13,20 @@ import br.com.twittelumapp.bancodedados.TweetDao
 import br.com.twittelumapp.bancodedados.TwittelumBancoDeDados
 import br.com.twittelumapp.modelo.Tweet
 import br.com.twittelumapp.repository.TweetRepository
+import br.com.twittelumapp.viewmodel.TweetViewModel
+import br.com.twittelumapp.viewmodel.ViewModelFactory
 
 class TweetActivity : AppCompatActivity() {
+    private val tweetViewModel: TweetViewModel by lazy {
+        ViewModelProviders.of(this, ViewModelFactory)
+            .get(TweetViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tweet)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
     }
 
     private fun publicaTweet() {
@@ -31,8 +37,7 @@ class TweetActivity : AppCompatActivity() {
         val tweet = Tweet(mensagemDoTweet)
         Log.i("tweet", tweet.toString())
 
-        val tweetRepository = TweetRepository()
-        tweetRepository.insere(tweet)
+        tweetViewModel.insere(tweet)
 
         Toast.makeText(this, "$tweet", Toast.LENGTH_LONG).show()
     }
