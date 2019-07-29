@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.ArrayAdapter
 import br.com.twittelumapp.R
-import br.com.twittelumapp.modelo.Tweet
 import br.com.twittelumapp.viewmodel.TweetViewModel
 import br.com.twittelumapp.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_lista.*
@@ -27,8 +26,8 @@ class ListaActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        tweetViewModel.lista().observe(this, Observer {tweets ->
-            val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, tweets)
+        tweetViewModel.lista().observe(this, Observer {
+            val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, it)
             lista_tweets.adapter = adapter
         })
 
