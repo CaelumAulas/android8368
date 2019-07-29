@@ -22,4 +22,20 @@
             android:layout_marginStart="20dp"
             android:hint="O que você está pensando?"/>
 
+    <android.support.v7.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            android:layout_margin="5dp"
+            android:paddingBottom="5dp"
+            app:cardCornerRadius="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/campo_tweet">
+
+        <ImageView
+                android:id="@+id/tweet_foto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+    </android.support.v7.widget.CardView>
 </android.support.constraint.ConstraintLayout>

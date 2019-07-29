@@ -2,6 +2,8 @@ package br.com.twittelumapp.activity
 
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -12,11 +14,13 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import br.com.twittelumapp.R
 import br.com.twittelumapp.modelo.Tweet
 import br.com.twittelumapp.viewmodel.TweetViewModel
 import br.com.twittelumapp.viewmodel.ViewModelFactory
+import kotlinx.android.synthetic.main.activity_tweet.*
 import java.io.File
 
 class TweetActivity : AppCompatActivity() {
@@ -25,11 +29,19 @@ class TweetActivity : AppCompatActivity() {
             .get(TweetViewModel::class.java)
     }
 
+    var caminhoDaFoto: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tweet)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        caminhoDaFoto?.let { carregaFoto() }
     }
 
     private fun publicaTweet() {
@@ -75,11 +87,18 @@ class TweetActivity : AppCompatActivity() {
     }
 
     private fun defineUri(): Uri? {
-        val caminhoDaFoto: String =
-            "${getExternalFilesDir(Environment.DIRECTORY_PICTURES)}/${System.currentTimeMillis()}.jpg"
+        caminhoDaFoto = "${getExternalFilesDir(Environment.DIRECTORY_PICTURES)}/${System.currentTimeMillis()}.jpg"
         val file = File(caminhoDaFoto)
         return FileProvider.getUriForFile(this, "br.com.twittelumapp", file)
     }
 
+    private fun carregaFoto() {
+        val bitmap = BitmapFactory.decodeFile(caminhoDaFoto)
+
+        val bm = Bitmap.createScaledBitmap(bitmap, 300, 300, true)
+
+        tweet_foto.setImageBitmap(bm)
+        tweet_foto.scaleType = ImageView.ScaleType.FIT_XY
+    }
 
 }
