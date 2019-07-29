@@ -12,6 +12,7 @@ class TweetRepository(private val tweetDao: TweetDao) {
     fun insere(tweet: Tweet)= tweetDao.insere(tweet)
 
     fun lista(): LiveData<List<Tweet>> = tweetDao.lista()
+    fun deleta(tweet: Tweet) = tweetDao.deleta(tweet)
 
 
 }

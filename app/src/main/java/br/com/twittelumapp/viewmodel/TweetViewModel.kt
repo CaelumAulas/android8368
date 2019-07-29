@@ -12,4 +12,5 @@ class TweetViewModel(private val tweetRepository: TweetRepository) : ViewModel()
     fun insere(tweet: Tweet) = tweetRepository.insere(tweet)
 
     fun lista(): LiveData<List<Tweet>> = tweetRepository.lista()
+    fun deleta(tweet: Tweet)  = tweetRepository.deleta(tweet)
 }
