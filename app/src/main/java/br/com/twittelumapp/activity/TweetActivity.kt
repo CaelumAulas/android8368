@@ -2,8 +2,10 @@ package br.com.twittelumapp.activity
 
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
+import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.view.Menu
@@ -14,6 +16,7 @@ import br.com.twittelumapp.R
 import br.com.twittelumapp.modelo.Tweet
 import br.com.twittelumapp.viewmodel.TweetViewModel
 import br.com.twittelumapp.viewmodel.ViewModelFactory
+import java.io.File
 
 class TweetActivity : AppCompatActivity() {
     private val tweetViewModel: TweetViewModel by lazy {
@@ -64,6 +67,18 @@ class TweetActivity : AppCompatActivity() {
 
     private fun vaiPraCamera() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+
+        val uri = defineUri()
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
         startActivity(intent)
     }
+
+    private fun defineUri(): Uri? {
+        val caminhoDaFoto: String =
+            "${getExternalFilesDir(Environment.DIRECTORY_PICTURES)}/${System.currentTimeMillis()}.jpg"
+        val file = File(caminhoDaFoto)
+        return Uri.fromFile(file)
+    }
+
+
 }
