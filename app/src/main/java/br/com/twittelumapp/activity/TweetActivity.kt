@@ -1,18 +1,17 @@
 package br.com.twittelumapp.activity
 
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
 import android.widget.Toast
 import br.com.twittelumapp.R
-import br.com.twittelumapp.bancodedados.TweetDao
-import br.com.twittelumapp.bancodedados.TwittelumBancoDeDados
 import br.com.twittelumapp.modelo.Tweet
-import br.com.twittelumapp.repository.TweetRepository
 import br.com.twittelumapp.viewmodel.TweetViewModel
 import br.com.twittelumapp.viewmodel.ViewModelFactory
 
@@ -55,8 +54,16 @@ class TweetActivity : AppCompatActivity() {
                 finish()
             }
             android.R.id.home -> finish()
+            
+            R.id.menu_tweet_foto -> vaiPraCamera()
         }
 
+
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun vaiPraCamera() {
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        startActivity(intent)
     }
 }
